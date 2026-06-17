@@ -1,0 +1,8 @@
+package com.railway.assetvault.repository;
+import com.railway.assetvault.entity.AssetTransfer;
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+public interface AssetTransferRepository extends JpaRepository<AssetTransfer, Long> {
+    List<AssetTransfer> findByAssetId(Long assetId);
+    List<AssetTransfer> findByStatus(String status);
+}
