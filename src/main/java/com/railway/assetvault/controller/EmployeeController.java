@@ -57,4 +57,19 @@ public class EmployeeController {
         user = userRepository.save(user);
         return new EmployeeDTO(user);
     }
+
+    @PutMapping("/{id}")
+    public EmployeeDTO updateEmployee(@PathVariable Long id, @RequestBody EmployeeRequest request) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("Employee not found"));
+        user.setName(request.name);
+        user.setEmail(request.email);
+        user.setPhone(request.phone);
+        user.setDesignation(request.designation);
+        return new EmployeeDTO(userRepository.save(user));
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteEmployee(@PathVariable Long id) {
+        userRepository.deleteById(id);
+    }
 }
