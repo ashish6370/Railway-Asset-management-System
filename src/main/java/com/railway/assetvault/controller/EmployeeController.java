@@ -33,10 +33,8 @@ public class EmployeeController {
 
     @GetMapping
     public List<EmployeeDTO> getAllEmployees() {
-        Role employeeRole = roleRepository.findByName(RoleName.ROLE_EMPLOYEE)
-                .orElseThrow(() -> new RuntimeException("Role not found"));
         return userRepository.findAll().stream()
-                .filter(user -> user.getRoles().contains(employeeRole))
+                .filter(user -> user.getRoles().stream().anyMatch(r -> r.getName() == RoleName.ROLE_EMPLOYEE))
                 .map(EmployeeDTO::new)
                 .collect(Collectors.toList());
     }
