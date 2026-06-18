@@ -25,6 +25,7 @@ public class PublicAssetController {
         }
 
         Map<String, Object> response = new HashMap<>();
+        response.put("id", asset.getId());
         response.put("assetId", asset.getAssetId());
         response.put("assetCode", asset.getAssetId()); // Duplicate since assetCode is assetId
         response.put("assetName", asset.getName());
