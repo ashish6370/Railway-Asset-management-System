@@ -1,6 +1,9 @@
 package com.railway.assetvault.dto.request;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class CategoryRequest {
+    @NotBlank(message = "Category name is required")
     private String name;
     private String description;
     public String getName() { return name; }

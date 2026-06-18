@@ -3,6 +3,7 @@ package com.railway.assetvault.controller;
 import com.railway.assetvault.dto.request.CategoryRequest;
 import com.railway.assetvault.entity.Category;
 import com.railway.assetvault.service.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -17,5 +18,5 @@ public class CategoryController {
     public List<Category> getAll() { return service.getAllCategories(); }
 
     @PostMapping
-    public Category create(@RequestBody CategoryRequest req) { return service.createCategory(req); }
+    public Category create(@Valid @RequestBody CategoryRequest req) { return service.createCategory(req); }
 }

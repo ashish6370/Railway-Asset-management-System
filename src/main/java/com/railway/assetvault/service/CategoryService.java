@@ -14,9 +14,17 @@ public class CategoryService {
     public List<Category> getAllCategories() { return repo.findAll(); }
     
     public Category createCategory(CategoryRequest req) {
+        String name = req.getName() == null ? "" : req.getName().trim();
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("Category name is required");
+        }
+        if (repo.existsByNameIgnoreCase(name)) {
+            throw new IllegalArgumentException("Category already exists");
+        }
+
         Category c = new Category();
-        c.setName(req.getName());
-        c.setDescription(req.getDescription());
+        c.setName(name);
+        c.setDescription(req.getDescription() == null ? null : req.getDescription().trim());
         return repo.save(c);
     }
 }
