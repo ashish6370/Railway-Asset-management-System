@@ -142,6 +142,13 @@
 			<version>5.5.13.3</version>
 		</dependency>
 
+		<!-- OpenPDF for generating Asset Passports -->
+		<dependency>
+			<groupId>com.github.librepdf</groupId>
+			<artifactId>openpdf</artifactId>
+			<version>1.3.30</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
