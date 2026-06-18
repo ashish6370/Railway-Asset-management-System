@@ -18,19 +18,13 @@ public class QrCodeGeneratorService {
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
             BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, 200, 200);
 
-            Path dirPath = Paths.get("uploads", "qrcodes");
-            if (!Files.exists(dirPath)) {
-                Files.createDirectories(dirPath);
-            }
+            java.io.ByteArrayOutputStream pngOutputStream = new java.io.ByteArrayOutputStream();
+            MatrixToImageWriter.writeToStream(bitMatrix, "PNG", pngOutputStream);
+            byte[] pngData = pngOutputStream.toByteArray();
 
-            String filename = "asset-" + assetId + ".png";
-            Path filePath = dirPath.resolve(filename);
-
-            MatrixToImageWriter.writeToPath(bitMatrix, "PNG", filePath);
-            
-            return "uploads/qrcodes/" + filename;
+            return "data:image/png;base64," + java.util.Base64.getEncoder().encodeToString(pngData);
         } catch (Exception e) {
-            throw new RuntimeException("Could not generate QR Code file", e);
+            throw new RuntimeException("Could not generate QR Code", e);
         }
     }
 }
